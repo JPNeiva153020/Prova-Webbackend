@@ -8,7 +8,10 @@ public class Aluno {
     private String endereco;
     private LocalDate dataIngresso;
 
-    public Aluno(String matricula, String nome, String endereco) {
+    public Aluno() {
+    }
+
+    public Aluno(String matricula, String nome, String endereco, LocalDate dataIngresso) {
         this.matricula = matricula;
         this.nome = nome;
         this.endereco = endereco;

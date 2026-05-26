@@ -11,7 +11,7 @@ import java.sql.SQLException;
 @Repository
 public class AlunoDAO {
     @Autowired
-    private final DataSource dataSource;
+    private DataSource dataSource;
 
     public AlunoDAO(DataSource dataSource) {
         this.dataSource = dataSource;
