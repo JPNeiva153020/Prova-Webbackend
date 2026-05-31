@@ -27,8 +27,8 @@ public class SistemaAcademicoApplication {
 	* [OK] 4. Criar a classe Aluno (matricula, nome, endereco, dataIngresso).
 	* [OK] 5. Criar a classe AlunoDAO.
 	* [OK] 6. Criar a classe AlunoController.
-     * [ ] 7. Criar a rota GET no Controller e a tela HTML (Thymeleaf) para o formulário de cadastro.
-     * [ ] 8. Criar a rota POST no Controller para receber o formulário e salvar no banco.
+     * [OK] 7. Criar a rota GET no Controller e a tela HTML (Thymeleaf) para o formulário de cadastro.
+     * [OK] 8. Criar a rota POST no Controller para receber o formulário e salvar no banco.
 	* [ ] 9. Criar tabela tb_materia (codigo, ementa).
 	* [ ] 10. Criar Modelo, DAO e Controller para Matéria.
      * [ ] 11. Criar telas HTML para Matéria (Cadastro e Listagem).

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Alunos</title>
+</head>
+<body>
+
+<h2>Alunos Matriculados</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Matrícula</th>
+        <th>Nome</th>
+        <th>Endereço</th>
+        <th>Data de Ingresso</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="aluno : ${listaAlunos}">
+        <td th:text="${aluno.matricula}"></td>
+        <td th:text="${aluno.nome}"></td>
+        <td th:text="${aluno.endereco}"></td>
+        <td th:text="${aluno.dataIngresso}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<a href="/alunos/novo">Cadastrar Novo Aluno</a>
+
+</body>
+</html>

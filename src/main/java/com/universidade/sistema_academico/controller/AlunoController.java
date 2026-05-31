@@ -1,12 +1,12 @@
 package com.universidade.sistema_academico.controller;
 
 import com.universidade.sistema_academico.dao.AlunoDAO;
+import com.universidade.sistema_academico.entity.Aluno;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AlunoController {
@@ -17,11 +17,29 @@ public class AlunoController {
         this.alunoDAO = alunoDAO;
     }
 
-    @GetMapping("/cadastrar-aluno")
-    public String cadastrarAluno(org.springframework.ui.Model model) {
+    @GetMapping("/alunos/novo")
+    public String exibirFormularioCadastro(Model model) {
+        model.addAttribute("aluno", new Aluno());
+        return "form-aluno";
+    }
 
-        model.addAttribute("aluno", new com.universidade.sistema_academico.entity.Aluno());
+    @PostMapping("/alunos/salvar")
+    public String salvarAluno(Aluno aluno) {
+        alunoDAO.salvar(aluno);
+        return "redirect:/alunos/novo";
+    }
 
-        return "cadastrar-aluno";
+    @GetMapping("/alunos")
+    public String listarAlunos(Model model) {
+        java.util.List<Aluno> lista = alunoDAO.listarTodos();
+        model.addAttribute("listaAlunos", lista);
+        return "lista-alunos";
+    }
+
+    @GetMapping("/alunos/deletar/{matricula}")
+    public String deletarAluno(@PathVariable String matricula) {
+
+        alunoDAO.deletar(matricula);
+        
     }
 }
