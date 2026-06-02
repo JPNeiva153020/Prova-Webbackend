@@ -39,6 +39,17 @@ public class SistemaAcademicoApplication {
      * [ ] 16. Consulta de Aluno: Trazer matérias matriculadas e a média de notas.
      * [ ] 17. Consulta de Turma: Trazer alunos matriculados, as 3 notas e status (Aprovado >= 6).
 	 */
+	/*
+		O projeto deverá “simular” o ambiente de uma universidade, neste deveremos ter:
+	Módulo para cadastro e consulta de Alunos (através da matrícula)
+	Um aluno deverá possuir, ao menos, nome, endereço, matrícula e data de ingresso.
+	A consulta deverá trazer quais matérias ele está matriculado e sua média.
+	Módulo para cadastro e consulta de Matérias (através do código da matéria)
+	Uma matéria deve possuir, ao menos, uma ementa (conteúdo, pode gerar no ChatGPT) e um código.
+	Módulo para cadastro e consulta de Turmas (através do código da turma)
+	Uma turma deverá ter, ao menos, um código.
+	A consulta de turmas deverá trazer os alunos matriculados, suas notas (três notas) e se foi aprovado ou não (nota superior ou igual à 6).
 
+	 */
 
 

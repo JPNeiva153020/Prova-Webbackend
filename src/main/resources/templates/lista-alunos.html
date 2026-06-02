@@ -15,7 +15,7 @@
         <th>Nome</th>
         <th>Endereço</th>
         <th>Data de Ingresso</th>
-    </tr>
+        <th>Ações</th> </tr>
     </thead>
     <tbody>
     <tr th:each="aluno : ${listaAlunos}">
@@ -23,6 +23,10 @@
         <td th:text="${aluno.nome}"></td>
         <td th:text="${aluno.endereco}"></td>
         <td th:text="${aluno.dataIngresso}"></td>
+
+        <td>
+            <a th:href="@{/alunos/deletar/{matricula}(matricula=${aluno.matricula})}">Remover</a>
+        </td>
     </tr>
     </tbody>
 </table>

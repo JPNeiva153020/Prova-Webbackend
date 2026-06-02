@@ -40,6 +40,8 @@ public class AlunoController {
     public String deletarAluno(@PathVariable String matricula) {
 
         alunoDAO.deletar(matricula);
+
+        return "redirect:/alunos";
         
     }
 }
