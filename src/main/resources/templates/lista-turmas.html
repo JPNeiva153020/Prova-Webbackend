@@ -2,7 +2,7 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Alunos</title>
+    <title>Turmas</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -27,11 +27,11 @@
 
         <div class="page-header">
             <div class="page-title">
-                <h1>Alunos</h1>
-                <p>Lista de alunos cadastrados no sistema.</p>
+                <h1>Turmas</h1>
+                <p>Visualize turmas cadastradas e acesse alunos e notas.</p>
             </div>
 
-            <a href="/alunos/novo" class="btn btn-primary">+ Novo aluno</a>
+            <a href="/turmas/novo" class="btn btn-primary">+ Nova turma</a>
         </div>
 
         <section class="panel">
@@ -39,25 +39,28 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>Matrícula</th>
-                        <th>Nome</th>
-                        <th>Endereço</th>
-                        <th>Data de ingresso</th>
+                        <th>Código</th>
+                        <th>Matéria</th>
+                        <th>Ementa</th>
                         <th>Ações</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr th:each="aluno : ${listaAlunos}">
-                        <td th:text="${aluno.matricula}"></td>
-                        <td th:text="${aluno.nome}"></td>
-                        <td th:text="${aluno.endereco}"></td>
-                        <td th:text="${aluno.dataIngresso}"></td>
+                    <tr th:each="turma : ${listaTurmas}">
+                        <td th:text="${turma.codigo}"></td>
+                        <td th:text="${turma.materiaCodigo}"></td>
+                        <td th:text="${turma.materiaEmenta}"></td>
                         <td>
                             <div class="actions">
+                                <a class="btn btn-primary"
+                                   th:href="@{/turmas/{codigo}/matriculas(codigo=${turma.codigo})}">
+                                    Alunos e notas
+                                </a>
+
                                 <a class="btn btn-danger"
-                                   th:href="@{/alunos/deletar/{matricula}(matricula=${aluno.matricula})}"
-                                   data-confirm-delete="Tem certeza que deseja remover este aluno?">
+                                   th:href="@{/turmas/deletar/{codigo}(codigo=${turma.codigo})}"
+                                   data-confirm-delete="Tem certeza que deseja remover esta turma?">
                                     Remover
                                 </a>
                             </div>
@@ -67,8 +70,8 @@
                 </table>
             </div>
 
-            <div class="empty" th:if="${#lists.isEmpty(listaAlunos)}">
-                Nenhum aluno cadastrado ainda.
+            <div class="empty" th:if="${#lists.isEmpty(listaTurmas)}">
+                Nenhuma turma cadastrada ainda.
             </div>
         </section>
 
