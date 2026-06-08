@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Acadêmico</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">🎓</span>
+            <span>Sistema Acadêmico</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/alunos">Alunos</a>
+            <a href="/materias">Matérias</a>
+            <a href="/turmas">Turmas</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <section class="hero">
+            <div class="hero-card">
+                <div class="badge">✨ Gestão acadêmica simples e moderna</div>
+
+                <h1>Controle alunos, matérias, turmas e notas em um só lugar.</h1>
+
+                <p>
+                    Sistema acadêmico feito com Java, Spring Boot, Thymeleaf e PostgreSQL.
+                    Cadastre alunos, organize matérias, crie turmas e registre notas de forma simples.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="/alunos/novo" class="btn btn-primary">Cadastrar aluno</a>
+                    <a href="/materias/novo" class="btn btn-secondary">Cadastrar matéria</a>
+                    <a href="/turmas/novo" class="btn btn-secondary">Cadastrar turma</a>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stat-item">
+                    <div class="stat-number">01</div>
+                    <div class="stat-label">Cadastro de alunos</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-number">02</div>
+                    <div class="stat-label">Controle de matérias</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-number">03</div>
+                    <div class="stat-label">Turmas com notas e média</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid">
+            <a href="/alunos" class="card">
+                <div class="card-icon">👨‍🎓</div>
+                <h3>Alunos</h3>
+                <p>Visualize, cadastre e gerencie os alunos do sistema.</p>
+                <span class="btn btn-primary">Acessar alunos</span>
+            </a>
+
+            <a href="/materias" class="card">
+                <div class="card-icon">📚</div>
+                <h3>Matérias</h3>
+                <p>Cadastre disciplinas e registre suas ementas.</p>
+                <span class="btn btn-primary">Acessar matérias</span>
+            </a>
+
+            <a href="/turmas" class="card">
+                <div class="card-icon">🏫</div>
+                <h3>Turmas</h3>
+                <p>Crie turmas, vincule alunos e acompanhe as notas.</p>
+                <span class="btn btn-primary">Acessar turmas</span>
+            </a>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

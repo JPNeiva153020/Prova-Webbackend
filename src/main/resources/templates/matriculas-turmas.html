@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Alunos e Notas</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">🎓</span>
+            <span>Sistema Acadêmico</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/alunos">Alunos</a>
+            <a href="/materias">Matérias</a>
+            <a href="/turmas">Turmas</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Alunos e notas</h1>
+                <p>
+                    Turma:
+                    <strong th:text="${turmaCodigo}"></strong>
+                </p>
+            </div>
+
+            <a href="/turmas" class="btn btn-secondary">Voltar para turmas</a>
+        </div>
+
+        <section class="panel" style="margin-bottom: 24px;">
+            <h2 style="margin-top: 0;">Matricular aluno</h2>
+
+            <form class="form"
+                  th:action="@{/turmas/{codigo}/matriculas/salvar(codigo=${turmaCodigo})}"
+                  th:object="${matriculaTurma}"
+                  method="post">
+
+                <div class="form-group">
+                    <label>Aluno</label>
+                    <select th:field="*{alunoMatricula}" required>
+                        <option value="">Selecione um aluno</option>
+
+                        <option th:each="aluno : ${listaAlunos}"
+                                th:value="${aluno.matricula}"
+                                th:text="${aluno.matricula} + ' - ' + ${aluno.nome}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="grid" style="margin-top: 0;">
+                    <div class="form-group">
+                        <label>Nota 1</label>
+                        <input type="number" step="0.01" min="0" max="10" th:field="*{nota1}" placeholder="0 a 10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nota 2</label>
+                        <input type="number" step="0.01" min="0" max="10" th:field="*{nota2}" placeholder="0 a 10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nota 3</label>
+                        <input type="number" step="0.01" min="0" max="10" th:field="*{nota3}" placeholder="0 a 10" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar matrícula e notas</button>
+                </div>
+
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2 style="margin-top: 0;">Alunos matriculados</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Aluno</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
+                        <th>Média</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="matricula : ${listaMatriculas}">
+                        <td th:text="${matricula.alunoMatricula}"></td>
+                        <td th:text="${matricula.alunoNome}"></td>
+                        <td th:text="${matricula.nota1}"></td>
+                        <td th:text="${matricula.nota2}"></td>
+                        <td th:text="${matricula.nota3}"></td>
+                        <td th:text="${#numbers.formatDecimal(matricula.media, 1, 2)}"></td>
+
+                        <td>
+                            <span th:if="${matricula.status == 'Aprovado'}"
+                                  class="status aprovado"
+                                  th:text="${matricula.status}">
+                            </span>
+
+                            <span th:if="${matricula.status == 'Reprovado'}"
+                                  class="status reprovado"
+                                  th:text="${matricula.status}">
+                            </span>
+                        </td>
+
+                        <td>
+                            <div class="actions">
+                                <a class="btn btn-danger"
+                                   th:href="@{/turmas/{codigo}/matriculas/deletar/{id}(codigo=${turmaCodigo}, id=${matricula.id})}"
+                                   data-confirm-delete="Tem certeza que deseja remover este aluno da turma?">
+                                    Remover
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty" th:if="${#lists.isEmpty(listaMatriculas)}">
+                Nenhum aluno matriculado nesta turma ainda.
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
