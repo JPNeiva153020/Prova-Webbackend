@@ -64,7 +64,7 @@ public class TurmaController {
         model.addAttribute("listaAlunos", alunoDAO.listarTodos());
         model.addAttribute("listaMatriculas", turmaDAO.listarMatriculasPorTurma(codigo));
 
-        return "matriculas-turma";
+        return "matriculas-turmas";
     }
 
     @PostMapping("/turmas/{codigo}/matriculas/salvar")

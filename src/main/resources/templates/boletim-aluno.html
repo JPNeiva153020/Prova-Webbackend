@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Boletim do Aluno</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="page">
+    <nav class="navbar">
+        <a href="/" class="logo"><span class="logo-icon">🎓</span><span>Sistema Acadêmico</span></a>
+        <div class="nav-links">
+            <a href="/">Home</a> <a href="/alunos">Alunos</a> <a href="/materias">Matérias</a> <a href="/turmas">Turmas</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Boletim do Aluno</h1>
+                <p>Matrícula: <strong th:text="${matricula}"></strong></p>
+            </div>
+            <a href="/alunos" class="btn btn-secondary">Voltar para Alunos</a>
+        </div>
+
+        <section class="panel">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Matéria (Ementa)</th>
+                        <th>Média Final</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${boletim}">
+                        <td th:text="${item.materia}"></td>
+                        <td>
+                            <span th:if="${item.media != null}" th:text="${#numbers.formatDecimal(item.media, 1, 2)}"></span>
+                            <span th:if="${item.media == null}" class="text-muted">Sem notas</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(boletim)}">
+                Este aluno não está matriculado em nenhuma matéria.
+            </div>
+        </section>
+    </main>
+</div>
+<script src="/js/app.js"></script>
+</body>
+</html>

@@ -60,6 +60,9 @@
                                    data-confirm-delete="Tem certeza que deseja remover este aluno?">
                                     Remover
                                 </a>
+                                <a class="btn btn-primary" th:href="@{/alunos/{matricula}/boletim(matricula=${aluno.matricula})}">
+                                    Ver Matérias e Média
+                                </a>
                             </div>
                         </td>
                     </tr>

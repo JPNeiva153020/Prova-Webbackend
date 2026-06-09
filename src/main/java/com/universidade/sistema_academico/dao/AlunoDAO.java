@@ -3,6 +3,7 @@ package com.universidade.sistema_academico.dao;
 import com.universidade.sistema_academico.entity.Aluno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.universidade.sistema_academico.entity.BoletimAluno;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -77,7 +78,7 @@ public class AlunoDAO {
         String sql = "DELETE FROM tb_aluno WHERE matricula = ?";
 
         try (Connection conn = dataSource.getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, matricula);
 
@@ -86,5 +87,40 @@ public class AlunoDAO {
         } catch (SQLException e) {
             System.out.println("Erro ao deletar aluno: " + e.getMessage());
         }
+    }
+
+    public List<BoletimAluno> buscarBoletimDoAluno(String matricula) {
+        List<BoletimAluno> boletim = new ArrayList<>();
+
+        String sql = """
+                 SELECT m.ementa as materia, tan.nota1, tan.nota2, tan.nota3
+                 FROM tb_turma_aluno_nota tan
+                 INNER JOIN tb_turma t ON tan.turma_codigo = t.codigo
+                 INNER JOIN tb_materia m ON t.materia_codigo = m.codigo
+                 WHERE tan.aluno_matricula = ?
+                 """;
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, matricula);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    BoletimAluno boletimAluno = new BoletimAluno();
+                    boletimAluno.setMateria(rs.getString("materia"));
+                    
+                    boletimAluno.setNota1(rs.getDouble("nota1"));
+                    boletimAluno.setNota2(rs.getDouble("nota2"));
+                    boletimAluno.setNota3(rs.getDouble("nota3"));
+
+                    boletim.add(boletimAluno);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar boletim: " + e.getMessage());
+        }
+
+        return boletim;
     }
 }

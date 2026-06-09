@@ -44,4 +44,11 @@ public class AlunoController {
         return "redirect:/alunos";
         
     }
+
+    @GetMapping("/alunos/{matricula}/boletim")
+    public String verBoletim(@PathVariable String matricula, Model model) {
+        model.addAttribute("matricula", matricula);
+        model.addAttribute("boletim", alunoDAO.buscarBoletimDoAluno(matricula));
+        return "boletim-aluno";
+    }
 }
