@@ -10,4 +10,9 @@ public class HomeController {
     public String inicio() {
         return "index";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }

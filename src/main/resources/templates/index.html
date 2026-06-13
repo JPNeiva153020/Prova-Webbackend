@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Sistema Acadêmico</title>
@@ -11,7 +11,7 @@
 
     <nav class="navbar">
         <a href="/" class="logo">
-            <span class="logo-icon">🎓</span>
+            <span class="logo-icon">SA</span>
             <span>Sistema Acadêmico</span>
         </a>
 
@@ -20,6 +20,9 @@
             <a href="/alunos">Alunos</a>
             <a href="/materias">Matérias</a>
             <a href="/turmas">Turmas</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-secondary">Sair</button>
+            </form>
         </div>
     </nav>
 
@@ -27,7 +30,7 @@
 
         <section class="hero">
             <div class="hero-card">
-                <div class="badge">✨ Gestão acadêmica simples e moderna</div>
+                <div class="badge">Painel administrativo</div>
 
                 <h1>Controle alunos, matérias, turmas e notas em um só lugar.</h1>
 
@@ -63,21 +66,21 @@
 
         <section class="grid">
             <a href="/alunos" class="card">
-                <div class="card-icon">👨‍🎓</div>
+                <div class="card-icon">AL</div>
                 <h3>Alunos</h3>
                 <p>Visualize, cadastre e gerencie os alunos do sistema.</p>
                 <span class="btn btn-primary">Acessar alunos</span>
             </a>
 
             <a href="/materias" class="card">
-                <div class="card-icon">📚</div>
+                <div class="card-icon">MA</div>
                 <h3>Matérias</h3>
                 <p>Cadastre disciplinas e registre suas ementas.</p>
                 <span class="btn btn-primary">Acessar matérias</span>
             </a>
 
             <a href="/turmas" class="card">
-                <div class="card-icon">🏫</div>
+                <div class="card-icon">TU</div>
                 <h3>Turmas</h3>
                 <p>Crie turmas, vincule alunos e acompanhe as notas.</p>
                 <span class="btn btn-primary">Acessar turmas</span>
@@ -88,6 +91,5 @@
 
 </div>
 
-<script src="/js/app.js"></script>
 </body>
 </html>

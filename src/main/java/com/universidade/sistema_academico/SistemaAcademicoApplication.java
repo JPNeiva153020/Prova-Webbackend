@@ -2,22 +2,14 @@ package com.universidade.sistema_academico;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.CommandLineRunner;
-import com.universidade.sistema_academico.dao.AlunoDAO;
-import com.universidade.sistema_academico.entity.Aluno;
-import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDate;
 
 @SpringBootApplication
 public class SistemaAcademicoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaAcademicoApplication.class, args);
-
 	}
-
-	}
+}
 
 
 	/*	Lógica do projeto
@@ -51,5 +43,4 @@ public class SistemaAcademicoApplication {
 	A consulta de turmas deverá trazer os alunos matriculados, suas notas (três notas) e se foi aprovado ou não (nota superior ou igual à 6).
 
 	 */
-
 
