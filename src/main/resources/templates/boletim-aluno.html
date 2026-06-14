@@ -31,13 +31,25 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>Matéria (Ementa)</th>
+                        <th>Turma</th>
+                        <th>Código</th>
+                        <th>Matéria</th>
+                        <th>Carga horária</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
                         <th>Média Final</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="item : ${boletim}">
+                        <td th:text="${item.turma}"></td>
+                        <td th:text="${item.materiaCodigo}"></td>
                         <td th:text="${item.materia}"></td>
+                        <td th:text="${item.cargaHoraria} ?: '-'"></td>
+                        <td th:text="${item.nota1}"></td>
+                        <td th:text="${item.nota2}"></td>
+                        <td th:text="${item.nota3}"></td>
                         <td>
                             <span th:if="${item.media != null}" th:text="${#numbers.formatDecimal(item.media, 1, 2)}"></span>
                             <span th:if="${item.media == null}" class="text-muted">Sem notas</span>

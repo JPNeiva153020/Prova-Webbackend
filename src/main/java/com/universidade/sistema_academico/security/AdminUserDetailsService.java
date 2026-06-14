@@ -1,7 +1,7 @@
 package com.universidade.sistema_academico.security;
 
-import com.universidade.sistema_academico.dao.AdminUserDAO;
 import com.universidade.sistema_academico.entity.AdminUser;
+import com.universidade.sistema_academico.repository.AdminUserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminUserDetailsService implements UserDetailsService {
 
-    private final AdminUserDAO adminUserDAO;
+    private final AdminUserRepository adminUserRepository;
 
-    public AdminUserDetailsService(AdminUserDAO adminUserDAO) {
-        this.adminUserDAO = adminUserDAO;
+    public AdminUserDetailsService(AdminUserRepository adminUserRepository) {
+        this.adminUserRepository = adminUserRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AdminUser admin = adminUserDAO.buscarPorUsername(username)
+        AdminUser admin = adminUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Administrador não encontrado: " + username));
 
         return User.builder()

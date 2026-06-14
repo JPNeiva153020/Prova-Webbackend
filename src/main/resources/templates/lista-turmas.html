@@ -34,8 +34,14 @@
                 <p>Visualize turmas cadastradas e acesse alunos e notas.</p>
             </div>
 
-            <a href="/turmas/novo" class="btn btn-primary">+ Nova turma</a>
+            <div class="actions">
+                <a href="/turmas/notas" class="btn btn-secondary">Consultar notas</a>
+                <a href="/turmas/novo" class="btn btn-primary">+ Nova turma</a>
+            </div>
         </div>
+
+        <div class="alert alert-success page-alert" th:if="${sucesso}" th:text="${sucesso}"></div>
+        <div class="alert alert-danger page-alert" th:if="${erro}" th:text="${erro}"></div>
 
         <section class="panel">
             <div class="table-wrapper">
@@ -43,8 +49,11 @@
                     <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Matéria</th>
-                        <th>Ementa</th>
+                        <th>Curso</th>
+                        <th>Período</th>
+                        <th>Turno</th>
+                        <th>Campus</th>
+                        <th>Matérias vinculadas</th>
                         <th>Ações</th>
                     </tr>
                     </thead>
@@ -52,10 +61,17 @@
                     <tbody>
                     <tr th:each="turma : ${listaTurmas}">
                         <td th:text="${turma.codigo}"></td>
-                        <td th:text="${turma.materiaCodigo}"></td>
-                        <td th:text="${turma.materiaEmenta}"></td>
-                        <td>
-                            <div class="actions">
+                        <td th:text="${turma.curso} ?: '-'"></td>
+                        <td th:text="${turma.periodo} ?: '-'"></td>
+                        <td th:text="${turma.turno} ?: '-'"></td>
+                        <td th:text="${turma.campus} ?: '-'"></td>
+                        <td class="text-cell" th:text="${turma.materiasResumo}"></td>
+                        <td class="actions-cell">
+                            <div class="actions table-actions">
+                                <a class="btn btn-secondary"
+                                   th:href="@{/turmas/{codigo}/materias(codigo=${turma.codigo})}">
+                                    Ver matérias
+                                </a>
                                 <a class="btn btn-primary"
                                    th:href="@{/turmas/{codigo}/matriculas(codigo=${turma.codigo})}">
                                     Alunos e notas

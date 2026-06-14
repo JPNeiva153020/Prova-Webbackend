@@ -31,7 +31,7 @@
         <div class="page-header">
             <div class="page-title">
                 <h1>Cadastrar matéria</h1>
-                <p>Informe o código da matéria e descreva sua ementa.</p>
+                <p>Informe código, nome, carga horária e ementa da disciplina.</p>
             </div>
 
             <a href="/materias" class="btn btn-secondary">Voltar</a>
@@ -40,9 +40,21 @@
         <section class="panel">
             <form class="form" th:action="@{/materias/salvar}" th:object="${materia}" method="post">
 
-                <div class="form-group">
-                    <label>Código</label>
-                    <input type="text" th:field="*{codigo}" placeholder="Ex: MAT001" required>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Código</label>
+                        <input type="text" th:field="*{codigo}" placeholder="Ex: CCO-101" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nome da matéria</label>
+                        <input type="text" th:field="*{nome}" placeholder="Ex: Sistemas Web">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Carga horária</label>
+                        <input type="text" th:field="*{cargaHoraria}" placeholder="Ex: 80h">
+                    </div>
                 </div>
 
                 <div class="form-group">

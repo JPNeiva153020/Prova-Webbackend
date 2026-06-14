@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Matérias da Turma</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="page">
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">SA</span>
+            <span>Sistema Acadêmico</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/alunos">Alunos</a>
+            <a href="/materias">Matérias</a>
+            <a href="/turmas">Turmas</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-secondary">Sair</button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Matérias da turma</h1>
+                <p>
+                    Turma:
+                    <strong th:text="${turma.descricao}"></strong>
+                    <span th:if="${turma.campus}"> - </span>
+                    <span th:if="${turma.campus}" th:text="${turma.campus}"></span>
+                </p>
+            </div>
+
+            <div class="actions">
+                <a th:href="@{/turmas/{codigo}/matriculas(codigo=${turma.codigo})}" class="btn btn-primary">Alunos e notas</a>
+                <a href="/turmas" class="btn btn-secondary">Voltar para turmas</a>
+            </div>
+        </div>
+
+        <div class="alert alert-success page-alert" th:if="${sucesso}" th:text="${sucesso}"></div>
+        <div class="alert alert-danger page-alert" th:if="${erro}" th:text="${erro}"></div>
+
+        <section class="panel">
+            <h2>Vincular nova matéria</h2>
+
+            <form class="form" th:action="@{/turmas/{codigo}/materias/vincular(codigo=${turma.codigo})}" method="post">
+                <div class="form-group">
+                    <label>Matéria</label>
+                    <select name="materiaCodigo" required>
+                        <option value="">Selecione uma matéria</option>
+                        <option th:each="materia : ${todasMaterias}"
+                                th:value="${materia.codigo}"
+                                th:text="${materia.resumo}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Vincular matéria</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Matérias vinculadas</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Carga horária</th>
+                        <th>Ementa</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="materia : ${listaMaterias}">
+                        <td th:text="${materia.codigo}"></td>
+                        <td th:text="${materia.nomeExibicao}"></td>
+                        <td th:text="${materia.cargaHoraria} ?: '-'"></td>
+                        <td class="text-cell" th:text="${materia.ementa}"></td>
+                        <td class="actions-cell">
+                            <div class="actions table-actions">
+                                <a class="btn btn-primary" th:href="@{/materias/{codigo}/detalhes(codigo=${materia.codigo})}">
+                                    Ver turmas e alunos
+                                </a>
+                                <a class="btn btn-danger"
+                                   th:href="@{/turmas/{codigo}/materias/remover/{materiaCodigo}(codigo=${turma.codigo}, materiaCodigo=${materia.codigo})}">
+                                    Remover da turma
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty" th:if="${#lists.isEmpty(listaMaterias)}">
+                Sem matérias vinculadas.
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Alunos e notas desta turma</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Aluno</th>
+                        <th>Matéria</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
+                        <th>Média</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="matricula : ${listaMatriculas}">
+                        <td th:text="${matricula.alunoMatricula} + ' - ' + ${matricula.alunoNome}"></td>
+                        <td th:text="${matricula.materiaResumo}"></td>
+                        <td th:text="${matricula.nota1}"></td>
+                        <td th:text="${matricula.nota2}"></td>
+                        <td th:text="${matricula.nota3}"></td>
+                        <td th:text="${#numbers.formatDecimal(matricula.media, 1, 2)}"></td>
+                        <td>
+                            <span th:if="${matricula.status == 'Aprovado'}" class="status aprovado" th:text="${matricula.status}"></span>
+                            <span th:if="${matricula.status == 'Reprovado'}" class="status reprovado" th:text="${matricula.status}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty" th:if="${#lists.isEmpty(listaMatriculas)}">
+                Nenhum aluno matriculado nas matérias desta turma.
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

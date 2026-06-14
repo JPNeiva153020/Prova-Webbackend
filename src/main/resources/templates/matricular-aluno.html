@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Matricular Aluno</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="page">
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">SA</span>
+            <span>Sistema Acadêmico</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/alunos">Alunos</a>
+            <a href="/materias">Matérias</a>
+            <a href="/turmas">Turmas</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-secondary">Sair</button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Matricular em matéria/turma</h1>
+                <p>
+                    Aluno:
+                    <strong th:text="${aluno.matricula} + ' - ' + ${aluno.nome}"></strong>
+                </p>
+            </div>
+
+            <a href="/alunos" class="btn btn-secondary">Voltar para alunos</a>
+        </div>
+
+        <div class="alert alert-success page-alert" th:if="${sucesso}" th:text="${sucesso}"></div>
+        <div class="alert alert-danger page-alert" th:if="${erro}" th:text="${erro}"></div>
+
+        <section class="panel">
+            <h2>Nova matrícula ou atualização de notas</h2>
+
+            <form class="form"
+                  th:action="@{/alunos/{matricula}/matricular/salvar(matricula=${aluno.matricula})}"
+                  th:object="${matriculaTurma}"
+                  method="post">
+
+                <div class="form-grid form-grid-notas">
+                    <div class="form-group span-full">
+                        <label>Turma e matéria</label>
+                        <select th:field="*{turmaMateria}" required>
+                            <option value="">Selecione uma turma e matéria</option>
+                            <option th:each="opcao : ${opcoesMatricula}"
+                                    th:value="${opcao.valor}"
+                                    th:text="${opcao.texto}">
+                            </option>
+                        </select>
+                        <small class="help-text">A matéria precisa estar vinculada à turma para aparecer nesta lista.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nota 1</label>
+                        <input type="number" step="0.01" min="0" max="10" th:field="*{nota1}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nota 2</label>
+                        <input type="number" step="0.01" min="0" max="10" th:field="*{nota2}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nota 3</label>
+                        <input type="number" step="0.01" min="0" max="10" th:field="*{nota3}" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar matrícula e notas</button>
+                    <a th:href="@{/alunos/{matricula}/boletim(matricula=${aluno.matricula})}" class="btn btn-secondary">Ver boletim</a>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Matrículas atuais do aluno</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Turma</th>
+                        <th>Matéria</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
+                        <th>Média</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="matricula : ${listaMatriculas}">
+                        <td th:text="${matricula.turmaCodigo}"></td>
+                        <td th:text="${matricula.materiaResumo}"></td>
+                        <td th:text="${matricula.nota1}"></td>
+                        <td th:text="${matricula.nota2}"></td>
+                        <td th:text="${matricula.nota3}"></td>
+                        <td th:text="${#numbers.formatDecimal(matricula.media, 1, 2)}"></td>
+                        <td>
+                            <span th:if="${matricula.status == 'Aprovado'}" class="status aprovado" th:text="${matricula.status}"></span>
+                            <span th:if="${matricula.status == 'Reprovado'}" class="status reprovado" th:text="${matricula.status}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty" th:if="${#lists.isEmpty(listaMatriculas)}">
+                Este aluno ainda não está matriculado em nenhuma matéria.
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

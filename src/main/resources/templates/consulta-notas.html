@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Notas</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="page">
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">SA</span>
+            <span>Sistema Acadêmico</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/alunos">Alunos</a>
+            <a href="/materias">Matérias</a>
+            <a href="/turmas">Turmas</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-secondary">Sair</button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Consulta de notas</h1>
+                <p>Filtre alunos por turma, por matéria ou pelos dois ao mesmo tempo.</p>
+            </div>
+
+            <a href="/turmas" class="btn btn-secondary">Voltar para turmas</a>
+        </div>
+
+        <section class="panel">
+            <h2>Filtros</h2>
+
+            <form class="form" th:action="@{/turmas/notas}" method="get">
+                <div class="form-grid form-grid-filter">
+                    <div class="form-group">
+                        <label>Turma</label>
+                        <select name="turmaCodigo">
+                            <option value="">Todas as turmas</option>
+                            <option th:each="turma : ${listaTurmas}"
+                                    th:value="${turma.codigo}"
+                                    th:selected="${turma.codigo == turmaCodigo}"
+                                    th:text="${turma.descricao}">
+                            </option>
+                        </select>
+                        <small class="help-text">Selecione uma turma e filtre para listar só as matérias dela.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Matéria</label>
+                        <select name="materiaCodigo">
+                            <option value="">Todas as matérias</option>
+                            <option th:each="materia : ${listaMaterias}"
+                                    th:value="${materia.codigo}"
+                                    th:selected="${materia.codigo == materiaCodigo}"
+                                    th:text="${materia.resumo}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Aplicar filtros</button>
+                    <a href="/turmas/notas" class="btn btn-secondary">Limpar</a>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Resultado da consulta</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Turma</th>
+                        <th>Matéria</th>
+                        <th>Matrícula</th>
+                        <th>Aluno</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
+                        <th>Média</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="matricula : ${listaMatriculas}">
+                        <td th:text="${matricula.turmaCodigo}"></td>
+                        <td th:text="${matricula.materiaResumo}"></td>
+                        <td th:text="${matricula.alunoMatricula}"></td>
+                        <td th:text="${matricula.alunoNome}"></td>
+                        <td th:text="${matricula.nota1}"></td>
+                        <td th:text="${matricula.nota2}"></td>
+                        <td th:text="${matricula.nota3}"></td>
+                        <td th:text="${#numbers.formatDecimal(matricula.media, 1, 2)}"></td>
+                        <td>
+                            <span th:if="${matricula.status == 'Aprovado'}" class="status aprovado" th:text="${matricula.status}"></span>
+                            <span th:if="${matricula.status == 'Reprovado'}" class="status reprovado" th:text="${matricula.status}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty" th:if="${#lists.isEmpty(listaMatriculas)}">
+                Nenhuma nota encontrada para os filtros selecionados.
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
