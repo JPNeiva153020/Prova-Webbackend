@@ -40,9 +40,6 @@
             <a href="/turmas" class="btn btn-secondary">Voltar para turmas</a>
         </div>
 
-        <div class="alert alert-success page-alert" th:if="${sucesso}" th:text="${sucesso}"></div>
-        <div class="alert alert-danger page-alert" th:if="${erro}" th:text="${erro}"></div>
-
         <section class="panel">
             <h2>Matricular aluno</h2>
 
@@ -63,20 +60,7 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label>Matéria da turma</label>
-                    <select th:field="*{materiaCodigo}" required>
-                        <option value="">Selecione uma matéria</option>
-
-                        <option th:each="materia : ${listaMaterias}"
-                                th:value="${materia.codigo}"
-                                th:text="${materia.resumo}">
-                        </option>
-                    </select>
-                    <small class="help-text">Se não aparecer matéria, volte em Ver matérias e vincule uma matéria à turma.</small>
-                </div>
-
-                <div class="form-grid form-grid-notas">
+                <div class="grid">
                     <div class="form-group">
                         <label>Nota 1</label>
                         <input type="number" step="0.01" min="0" max="10" th:field="*{nota1}" placeholder="0 a 10" required>
@@ -109,7 +93,6 @@
                     <tr>
                         <th>Matrícula</th>
                         <th>Aluno</th>
-                        <th>Matéria</th>
                         <th>Nota 1</th>
                         <th>Nota 2</th>
                         <th>Nota 3</th>
@@ -123,7 +106,6 @@
                     <tr th:each="matricula : ${listaMatriculas}">
                         <td th:text="${matricula.alunoMatricula}"></td>
                         <td th:text="${matricula.alunoNome}"></td>
-                        <td th:text="${matricula.materiaResumo}"></td>
                         <td th:text="${matricula.nota1}"></td>
                         <td th:text="${matricula.nota2}"></td>
                         <td th:text="${matricula.nota3}"></td>
@@ -141,8 +123,8 @@
                             </span>
                         </td>
 
-                        <td class="actions-cell">
-                            <div class="actions table-actions">
+                        <td>
+                            <div class="actions">
                                 <a class="btn btn-danger"
                                    th:href="@{/turmas/{codigo}/matriculas/deletar/{id}(codigo=${turmaCodigo}, id=${matricula.id})}">
                                     Remover

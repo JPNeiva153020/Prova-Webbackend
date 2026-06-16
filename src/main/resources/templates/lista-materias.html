@@ -31,14 +31,11 @@
         <div class="page-header">
             <div class="page-title">
                 <h1>Matérias</h1>
-                <p>Gerencie disciplinas, carga horária, ementa e vínculos com turmas.</p>
+                <p>Gerencie as matérias e suas respectivas ementas.</p>
             </div>
 
             <a href="/materias/novo" class="btn btn-primary">+ Nova matéria</a>
         </div>
-
-        <div class="alert alert-success page-alert" th:if="${sucesso}" th:text="${sucesso}"></div>
-        <div class="alert alert-danger page-alert" th:if="${erro}" th:text="${erro}"></div>
 
         <section class="panel">
             <div class="table-wrapper">
@@ -46,8 +43,6 @@
                     <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nome</th>
-                        <th>Carga horária</th>
                         <th>Ementa</th>
                         <th>Ações</th>
                     </tr>
@@ -56,15 +51,9 @@
                     <tbody>
                     <tr th:each="materia : ${listaMaterias}">
                         <td th:text="${materia.codigo}"></td>
-                        <td th:text="${materia.nomeExibicao}"></td>
-                        <td th:text="${materia.cargaHoraria} ?: '-'"></td>
-                        <td class="text-cell" th:text="${materia.ementa}"></td>
-                        <td class="actions-cell">
-                            <div class="actions table-actions">
-                                <a class="btn btn-primary"
-                                   th:href="@{/materias/{codigo}/detalhes(codigo=${materia.codigo})}">
-                                    Ver turmas e alunos
-                                </a>
+                        <td th:text="${materia.ementa}"></td>
+                        <td>
+                            <div class="actions">
                                 <a class="btn btn-danger"
                                    th:href="@{/materias/deletar/{codigo}(codigo=${materia.codigo})}">
                                     Remover

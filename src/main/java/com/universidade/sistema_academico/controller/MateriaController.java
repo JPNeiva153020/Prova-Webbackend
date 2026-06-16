@@ -1,21 +1,20 @@
 package com.universidade.sistema_academico.controller;
 
+import com.universidade.sistema_academico.dao.MateriaDAO;
 import com.universidade.sistema_academico.entity.Materia;
-import com.universidade.sistema_academico.service.MateriaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MateriaController {
 
-    private final MateriaService materiaService;
+    private final MateriaDAO materiaDAO;
 
-    public MateriaController(MateriaService materiaService) {
-        this.materiaService = materiaService;
+    public MateriaController(MateriaDAO materiaDAO) {
+        this.materiaDAO = materiaDAO;
     }
 
     @GetMapping("/materias/novo")
@@ -26,34 +25,23 @@ public class MateriaController {
     }
 
     @PostMapping("/materias/salvar")
-    public String salvarMateria(Materia materia, RedirectAttributes redirectAttributes) {
-        materiaService.salvar(materia);
-        redirectAttributes.addFlashAttribute("sucesso", "Matéria salva com sucesso.");
+    public String salvarMateria(Materia materia) {
+        materiaDAO.salvar(materia);
 
         return "redirect:/materias";
     }
 
     @GetMapping("/materias")
     public String listarMaterias(Model model) {
-        model.addAttribute("listaMaterias", materiaService.listarTodos());
+        model.addAttribute("listaMaterias", materiaDAO.listarTodos());
 
         return "lista-materias";
     }
 
     @GetMapping("/materias/deletar/{codigo}")
-    public String deletarMateria(@PathVariable String codigo, RedirectAttributes redirectAttributes) {
-        materiaService.deletar(codigo);
-        redirectAttributes.addFlashAttribute("sucesso", "Matéria removida. Turmas e alunos foram mantidos.");
+    public String deletarMateria(@PathVariable String codigo) {
+        materiaDAO.deletar(codigo);
 
         return "redirect:/materias";
-    }
-
-    @GetMapping("/materias/{codigo}/detalhes")
-    public String detalhesMateria(@PathVariable String codigo, Model model) {
-        model.addAttribute("materia", materiaService.buscarPorCodigo(codigo));
-        model.addAttribute("listaTurmas", materiaService.listarTurmasDaMateria(codigo));
-        model.addAttribute("listaMatriculas", materiaService.listarAlunosDaMateria(codigo));
-
-        return "detalhes-materia";
     }
 }

@@ -37,9 +37,6 @@
             <a href="/alunos" class="btn btn-secondary">Voltar</a>
         </div>
 
-        <div class="alert alert-success page-alert" th:if="${sucesso}" th:text="${sucesso}"></div>
-        <div class="alert alert-danger page-alert" th:if="${erro}" th:text="${erro}"></div>
-
         <section class="panel">
             <form class="form" th:action="@{/alunos/salvar}" th:object="${aluno}" method="post">
 

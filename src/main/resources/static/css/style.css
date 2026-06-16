@@ -282,11 +282,6 @@ select {
     outline: none;
 }
 
-select {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 textarea {
     min-height: 118px;
     resize: vertical;
@@ -311,9 +306,6 @@ select:focus {
     font-size: 14px;
     font-weight: 800;
     cursor: pointer;
-    line-height: 1.2;
-    text-align: center;
-    white-space: nowrap;
 }
 
 .btn-primary {
@@ -364,7 +356,6 @@ td {
     padding: 13px 14px;
     text-align: left;
     border-bottom: 1px solid var(--border);
-    vertical-align: middle;
 }
 
 th {
@@ -375,54 +366,6 @@ th {
 
 td {
     color: #1f2937;
-}
-
-.text-cell {
-    min-width: 260px;
-    max-width: 420px;
-    line-height: 1.45;
-}
-
-.actions-cell {
-    width: 1%;
-    min-width: 230px;
-}
-
-.actions-cell-wide {
-    min-width: 360px;
-}
-
-.table-actions {
-    align-items: center;
-    gap: 8px;
-}
-
-.table-actions .btn {
-    min-height: 36px;
-    padding: 8px 12px;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 16px;
-    align-items: end;
-}
-
-.form-grid-notas {
-    grid-template-columns: minmax(280px, 2fr) repeat(3, minmax(140px, 1fr));
-}
-
-.form-grid-filter {
-    grid-template-columns: repeat(2, minmax(260px, 1fr));
-}
-
-.span-2 {
-    grid-column: span 2;
-}
-
-.span-full {
-    grid-column: 1 / -1;
 }
 
 tbody tr:hover {
@@ -500,16 +443,6 @@ tbody tr:hover {
     color: #166534;
 }
 
-.help-text {
-    color: var(--text-muted);
-    font-size: 13px;
-    line-height: 1.4;
-}
-
-.page-alert {
-    margin-bottom: 18px;
-}
-
 .footer-space {
     height: 30px;
 }
@@ -518,18 +451,6 @@ tbody tr:hover {
     .navbar {
         align-items: flex-start;
         flex-direction: column;
-        padding: 14px 20px;
-    }
-
-    .nav-links {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 4px;
-    }
-
-    .nav-links a,
-    .nav-links .btn {
-        flex: 0 0 auto;
     }
 
     .container {
@@ -548,28 +469,5 @@ tbody tr:hover {
     .page-header {
         align-items: flex-start;
         flex-direction: column;
-    }
-
-    .form-grid,
-    .form-grid-notas,
-    .form-grid-filter {
-        grid-template-columns: 1fr;
-    }
-
-    .span-2 {
-        grid-column: auto;
-    }
-
-    .span-full {
-        grid-column: auto;
-    }
-
-    .actions-cell,
-    .actions-cell-wide {
-        min-width: 220px;
-    }
-
-    .btn {
-        white-space: normal;
     }
 }

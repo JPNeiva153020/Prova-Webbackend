@@ -37,9 +37,6 @@
             <a href="/alunos/novo" class="btn btn-primary">+ Novo aluno</a>
         </div>
 
-        <div class="alert alert-success page-alert" th:if="${sucesso}" th:text="${sucesso}"></div>
-        <div class="alert alert-danger page-alert" th:if="${erro}" th:text="${erro}"></div>
-
         <section class="panel">
             <div class="table-wrapper">
                 <table>
@@ -59,17 +56,14 @@
                         <td th:text="${aluno.nome}"></td>
                         <td th:text="${aluno.endereco}"></td>
                         <td th:text="${aluno.dataIngresso}"></td>
-                        <td class="actions-cell actions-cell-wide">
-                            <div class="actions table-actions">
+                        <td>
+                            <div class="actions">
                                 <a class="btn btn-danger"
                                    th:href="@{/alunos/deletar/{matricula}(matricula=${aluno.matricula})}">
                                     Remover
                                 </a>
                                 <a class="btn btn-primary" th:href="@{/alunos/{matricula}/boletim(matricula=${aluno.matricula})}">
                                     Ver Matérias e Média
-                                </a>
-                                <a class="btn btn-secondary" th:href="@{/alunos/{matricula}/matricular(matricula=${aluno.matricula})}">
-                                    Matricular em matéria/turma
                                 </a>
                             </div>
                         </td>
